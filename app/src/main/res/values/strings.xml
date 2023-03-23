@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TrashReport</string>
+    <string name="signalerdecharge">Signaler une décharge</string>
 </resources>
