@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/signalementdesdechets_liste"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="166dp"
+        tools:ignore="MissingConstraints">
+
+        <RadioButton
+            android:id="@+id/signalementdesdechets_verre_plastique"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verre et/ou Plastique" />
+
+        <RadioButton
+            android:id="@+id/signalementdesdechets_epave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Épave/Reste d'épave" />
+
+        <RadioButton
+            android:id="@+id/signalementdesdechets_megot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mégot" />
+
+        <RadioButton
+            android:id="@+id/signalementdesdechets_papier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Papier" />
+
+        <RadioButton
+            android:id="@+id/signalementdesdechets_gravat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gravat" />
+
+        <RadioButton
+            android:id="@+id/signalementdesdechets_bricolage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Déchet de bricolage" />
+
+        <RadioButton
+            android:id="@+id/signalementdesdechets_autre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Autre" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        android:text="Type(s) de dechet(s)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/signalementdesdechets_liste"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/signalementdesdechets_text_autre"
+        android:layout_width="188dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Détails"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signalementdesdechets_liste"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/signalementdesdechets_retour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Retour"
+        app:layout_constraintEnd_toStartOf="@+id/signalementdesdechets_signaler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signalementdesdechets_text_autre" />
+
+    <Button
+        android:id="@+id/signalementdesdechets_signaler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Signaler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/signalementdesdechets_retour"
+        app:layout_constraintTop_toBottomOf="@+id/signalementdesdechets_text_autre" />
+</androidx.constraintlayout.widget.ConstraintLayout>
