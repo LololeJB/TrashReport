@@ -32,8 +32,7 @@ public class Inscription extends AppCompatActivity {
         inscription.setClickable(false);
 
         retour.setOnClickListener(v -> {
-            Intent connexion = new Intent(Inscription.this,MainActivity.class);
-            startActivity(connexion);
+            finish();
         });
 
         String eMailText = String.valueOf(EMail.getText());
@@ -67,8 +66,7 @@ public class Inscription extends AppCompatActivity {
 
         inscription.setOnClickListener(v -> {
             if (countOccurencesOfEmail(bdd,eMailText)==0){
-                Intent connexion = new Intent(Inscription.this,MainActivity.class);
-                startActivity(connexion);
+                finish();
             }
 
         });

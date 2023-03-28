@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent gotomap = new Intent(MainActivity.this,MapDesDechets.class);
                 startActivity(gotomap);
             }
+
         });
         flop.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -76,7 +76,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Détails"
+        android:text=""
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -105,4 +105,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/signalementdesdechets_retour"
         app:layout_constraintTop_toBottomOf="@+id/signalementdesdechets_text_autre" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

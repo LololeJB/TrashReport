@@ -27,6 +27,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".MapDesDechets"/>
         <activity android:name=".Inscription"/>
+        <activity android:name=".SignalementDesDechets"/>
     </application>
 
 </manifest>

@@ -1,8 +1,10 @@
 package com.example.trashreport;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,7 @@ public class MapDesDechets extends AppCompatActivity {
         setContentView(R.layout.mapdesdechets);
         context=getApplicationContext();
         MapDesDechets=findViewById(R.id.mapdesdechets_mapview);
+        submitplace=findViewById(R.id.mapdesdechets_signalerdecharge);
 
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
         MapDesDechets.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
@@ -65,5 +68,13 @@ public class MapDesDechets extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         MapDesDechets.onResume();
+
+        submitplace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signalementdesdechet = new Intent(MapDesDechets.this, SignalementDesDechets.class);
+                startActivity(signalementdesdechet);
+            }
+        });
     }
 }
