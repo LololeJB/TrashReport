@@ -7,17 +7,16 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PoweredByEclipse extends AppCompatActivity {
+    Intent accessMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.poweredbyeclipse);
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent accessMenu = new Intent(PoweredByEclipse.this,MainActivity.class);
-                startActivity(accessMenu);
-            }
+        handler.postDelayed(() -> {
+            accessMenu = new Intent(PoweredByEclipse.this,MainActivity.class);
+            startActivity(accessMenu);
         }, 2000);   //2 seconds
     }
 }

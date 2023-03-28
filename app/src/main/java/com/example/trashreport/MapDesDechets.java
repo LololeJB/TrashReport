@@ -12,6 +12,12 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MapDesDechets extends AppCompatActivity {
 
@@ -19,6 +25,7 @@ public class MapDesDechets extends AppCompatActivity {
     private MapView MapDesDechets;
     Context context;
     private IMapController MapController;
+    ArrayList<OverlayItem> geopoints = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -35,5 +42,28 @@ public class MapDesDechets extends AppCompatActivity {
         MapController = MapDesDechets.getController();
         MapController.setZoom(18.0);
         MapController.setCenter(startpoint);
+        ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), geopoints, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+            @Override
+            public boolean onItemSingleTapUp(int index, OverlayItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onItemLongPress(int index, OverlayItem item) {
+                return false;
+            }
+        });
+        mOverlay.setFocusItemsOnTap(true);
+        MapDesDechets.getOverlays().add(mOverlay);
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        MapDesDechets.onPause();
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        MapDesDechets.onResume();
     }
 }

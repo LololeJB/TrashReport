@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TrashReport</string>
+    <string name="signalerdecharge">Report a Dump</string>
+</resources>
