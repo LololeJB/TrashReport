@@ -1,13 +1,17 @@
 package com.example.trashreport;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.trashreport.Ressources.SQLClient;
 
 public class SignalementDesDechets extends AppCompatActivity {
     RadioButton bricolage;
@@ -35,7 +39,7 @@ public class SignalementDesDechets extends AppCompatActivity {
         detail.setEnabled(false);
         detail.setActivated(false);
         detail.setClickable(false);
-
+        detail.setVisibility(View.VISIBLE);
 
         retour.setOnClickListener(v -> {
             finish();

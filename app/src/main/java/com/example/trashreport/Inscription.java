@@ -1,5 +1,6 @@
 package com.example.trashreport;
 
+import static com.example.trashreport.Ressources.UserDAO.InsertUser;
 import static com.example.trashreport.Ressources.UserDAO.countOccurencesOfEmail;
 
 import android.content.Intent;
@@ -23,13 +24,14 @@ public class Inscription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inscription);
-        inscription  = findViewById(R.id.Inscription_Retour);
-        retour = findViewById(R.id.Inscription_Valider);
+        inscription  = findViewById(R.id.Inscription_Valider);
+        retour = findViewById(R.id.Inscription_Retour);
         EMail = findViewById(R.id.Inscription_EmailAddress);
         MDP = findViewById(R.id.Inscription_Password1);
         MDPVrai = findViewById(R.id.Inscription_Password2);
+
         bdd = new SQLClient(this);
-        inscription.setClickable(false);
+        inscription.setEnabled(false);
 
         retour.setOnClickListener(v -> {
             finish();
@@ -66,6 +68,7 @@ public class Inscription extends AppCompatActivity {
 
         inscription.setOnClickListener(v -> {
             if (countOccurencesOfEmail(bdd,eMailText)==0){
+                InsertUser(bdd, eMailText, mDPText);
                 finish();
             }
 
