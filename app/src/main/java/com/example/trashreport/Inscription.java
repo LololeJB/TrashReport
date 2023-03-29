@@ -49,8 +49,8 @@ public class Inscription extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mDPText.equals(mDPVraiText)){
-                    inscription.setEnabled(!mDPText.isEmpty());
+                if (MDP.getText().equals(MDPVrai.getText())){
+                    inscription.setEnabled(!String.valueOf(MDP.getText()).isEmpty());
                 }else {
                     inscription.setEnabled(false);
                 }
@@ -58,8 +58,8 @@ public class Inscription extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (mDPText.equals(mDPVraiText)){
-                    inscription.setEnabled(!mDPText.isEmpty());
+                if (MDP.getText().equals(MDPVrai.getText())){
+                    inscription.setEnabled(!String.valueOf(MDP.getText()).isEmpty());
                 }else {
                     inscription.setEnabled(false);
                 }
@@ -67,8 +67,8 @@ public class Inscription extends AppCompatActivity {
         });
 
         inscription.setOnClickListener(v -> {
-            if (countOccurencesOfEmail(bdd,eMailText)==0){
-                InsertUser(bdd, eMailText, mDPText);
+            if (countOccurencesOfEmail(bdd, String.valueOf(EMail.getText()))==0){
+                InsertUser(bdd, String.valueOf(EMail.getText()), String.valueOf(MDP.getText()));
                 finish();
             }
 
