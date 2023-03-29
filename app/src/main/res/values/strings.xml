@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TrashReport</string>
     <string name="signalerdecharge">Signaler une décharge</string>
+    <string name="email">Email :</string>
+    <string name="password">Mot de Passe :</string>
+    <string name="confirm_password">Confirmer le mot de passe :</string>
 </resources>
