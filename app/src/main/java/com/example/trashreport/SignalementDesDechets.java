@@ -1,7 +1,6 @@
 package com.example.trashreport;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,28 +33,19 @@ public class SignalementDesDechets extends AppCompatActivity {
         liste.check(R.id.signalementdesdechets_verre_plastique);
         detail.setVisibility(View.INVISIBLE);
 
-        retour.setOnClickListener(v -> {
-            finish();
-        });
+        retour.setOnClickListener(v -> finish());
         if (liste.getCheckedRadioButtonId()== R.id.signalementdesdechets_verre_plastique){
             detail.setVisibility(View.INVISIBLE);
         } else {
             detail.setVisibility(View.VISIBLE);
         }
-        liste.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (liste.getCheckedRadioButtonId()== R.id.signalementdesdechets_autre){
-                    detail.setVisibility(View.VISIBLE);
-                    if (detail.length() >=1) {
-                        signaler.setEnabled(true);
-                    }else {
-                        signaler.setEnabled(false);
-                    }
-                } else {
-                    detail.setVisibility(View.INVISIBLE);
-                    signaler.setEnabled(true);
-                }
+        liste.setOnCheckedChangeListener((radioGroup, i) -> {
+            if (liste.getCheckedRadioButtonId()== R.id.signalementdesdechets_autre){
+                detail.setVisibility(View.VISIBLE);
+                signaler.setEnabled(detail.length() >= 1);
+            } else {
+                detail.setVisibility(View.INVISIBLE);
+                signaler.setEnabled(true);
             }
         });
 
@@ -66,11 +56,7 @@ public class SignalementDesDechets extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (detail.length() >=1) {
-                    signaler.setEnabled(true);
-                }else {
-                    signaler.setEnabled(false);
-                }
+                signaler.setEnabled(detail.length() >= 1);
             }
 
             @Override
