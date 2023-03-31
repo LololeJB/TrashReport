@@ -1,5 +1,8 @@
 package com.example.trashreport;
 
+import static com.example.trashreport.Ressources.GeoPointsDAO.insertGeoPoint;
+import static com.example.trashreport.Ressources.GlobalVars.getUserId;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +22,7 @@ public class SignalementDesDechets extends AppCompatActivity {
     EditText detail;
     Button signaler;
     Button retour;
+    double latitude, longitude;
     SQLClient bdd;
 
     @Override
@@ -29,6 +33,8 @@ public class SignalementDesDechets extends AppCompatActivity {
         detail = findViewById(R.id.signalementdesdechets_text_autre);
         signaler = findViewById(R.id.signalementdesdechets_signaler);
         retour = findViewById(R.id.signalementdesdechets_retour);
+        latitude = getIntent().getDoubleExtra("latitude",0);
+        longitude = getIntent().getDoubleExtra("longitude",0);
 
         liste.check(R.id.signalementdesdechets_verre_plastique);
         detail.setVisibility(View.INVISIBLE);
@@ -73,7 +79,7 @@ public class SignalementDesDechets extends AppCompatActivity {
             if (liste.getCheckedRadioButtonId()== R.id.signalementdesdechets_autre){
                 categorisation = String.valueOf(detail.getText());
             }
-            public static void insertGeoPoint(bdd, latitude, longitude, userid, categorisation);
+            insertGeoPoint(bdd, latitude, longitude, getUserId(), categorisation);
 
             Intent connexion = new Intent(SignalementDesDechets.this,MainActivity.class);
             startActivity(connexion);

@@ -1,5 +1,6 @@
 package com.example.trashreport.Ressources;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.osmdroid.views.overlay.OverlayItem;
@@ -15,7 +16,16 @@ public class GeoPointsDAO {
         db.close();
 
     }
-    public static ArrayList<OverlayItem> getAllGeoPoints(){
+    public static ArrayList<OverlayItem> getAllGeoPoints(SQLClient bdd){
+        SQLiteDatabase db=bdd.getReadableDatabase();
+        Cursor reqresult =db.rawQuery("Select * From Dechets",null);
+        ArrayList<OverlayItem>returnvalue;
+        if(reqresult.moveToFirst()){
+
+        }
+        else{
+            throw new NullPointerException("Aucun géopoint acrtuellement enregistré");
+        }
         return null;
     }
 }
