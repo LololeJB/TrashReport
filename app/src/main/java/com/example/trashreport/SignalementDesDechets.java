@@ -1,8 +1,13 @@
 package com.example.trashreport;
 
+import static com.example.trashreport.Ressources.GeoPointsDAO.insertGeoPoint;
+import static com.example.trashreport.Ressources.GlobalVars.getUserId;
+
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,7 +93,7 @@ public class SignalementDesDechets extends AppCompatActivity {
             if (liste.getCheckedRadioButtonId()== R.id.signalementdesdechets_autre){
                 categorisation = String.valueOf(detail.getText());
             }
-            public static void insertGeoPoint(bdd, latitude, longitude, userid, categorisation);
+            insertGeoPoint(bdd, latitude, longitude, getUserId(), categorisation);
 
             Intent connexion = new Intent(SignalementDesDechets.this,MainActivity.class);
             startActivity(connexion);
