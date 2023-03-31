@@ -7,15 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.trashreport.Ressources.SQLClient;
+
+import java.util.UUID;
 
 public class SignalementDesDechets extends AppCompatActivity {
     RadioGroup liste;
@@ -84,5 +92,25 @@ public class SignalementDesDechets extends AppCompatActivity {
             Intent connexion = new Intent(SignalementDesDechets.this,MainActivity.class);
             startActivity(connexion);
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflaterMenu = getMenuInflater();
+        inflaterMenu.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.quitmenu:
+                Intent connexion = new Intent(SignalementDesDechets.this,MainActivity.class);
+                startActivity(connexion);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
