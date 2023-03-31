@@ -25,6 +25,7 @@ public class SignalementDesDechets extends AppCompatActivity {
     EditText detail;
     Button signaler;
     Button retour;
+    double latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ public class SignalementDesDechets extends AppCompatActivity {
         detail = findViewById(R.id.signalementdesdechets_text_autre);
         signaler = findViewById(R.id.signalementdesdechets_signaler);
         retour = findViewById(R.id.signalementdesdechets_retour);
+        latitude = getIntent().getDoubleExtra("latitude",0);
+        longitude = getIntent().getDoubleExtra("longitude",0);
 
         liste.check(R.id.signalementdesdechets_verre_plastique);
         detail.setEnabled(false);

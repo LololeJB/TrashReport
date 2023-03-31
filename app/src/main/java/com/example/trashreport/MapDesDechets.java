@@ -2,6 +2,7 @@ package com.example.trashreport;
 
 import static com.example.trashreport.Ressources.GeoPointsDAO.getAllGeoPoints;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.example.trashreport.Ressources.SQLClient;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -36,9 +39,9 @@ public class MapDesDechets extends AppCompatActivity {
     Context context;
     private IMapController MapController;
     private GeoPoint startpoint = null;
+    SQLClient bdd;
     ArrayList<OverlayItem> geopoints = new ArrayList<>();
-
-
+    Location lavraieLocation = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,25 +50,46 @@ public class MapDesDechets extends AppCompatActivity {
         context = getApplicationContext();
         MapDesDechets = findViewById(R.id.mapdesdechets_mapview);
         submitplace = findViewById(R.id.mapdesdechets_signalerdecharge);
+        bdd = new SQLClient(this);
         androidUpdateLocation();
+        getLastLocation();
 
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
         MapDesDechets.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         MapDesDechets.setMultiTouchControls(true);
         //(a modifier) centrer la map sur l'iut
-        startpoint=new GeoPoint(43.570127979080205,1.4650829805386556);
+        startpoint = new GeoPoint(lavraieLocation.getLatitude(), lavraieLocation.getLongitude());
         MapController = MapDesDechets.getController();
         MapController.setZoom(18.0);
         MapController.setCenter(startpoint);
-        //geopoints = getAllGeoPoints();
+        try{
+            geopoints = getAllGeoPoints(bdd);
+            ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), geopoints, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                @Override
+                public boolean onItemSingleTapUp(int index, OverlayItem item) {
+                    return true;
+                }
 
-
+                @Override
+                public boolean onItemLongPress(int index, OverlayItem item) {
+                    return false;
+                }
+            });
+            mOverlay.setFocusItemsOnTap(true);
+            MapDesDechets.getOverlays().add(mOverlay);
+        }catch(Exception e){
+            //rien à ajouter
+        }
 
         //bouton pour submit un déchet
         submitplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                androidUpdateLocation();
+                getLastLocation();
                 Intent signalementdesdechet = new Intent(MapDesDechets.this, SignalementDesDechets.class);
+                signalementdesdechet.putExtra("latitude",lavraieLocation.getLatitude());
+                signalementdesdechet.putExtra("longitude",lavraieLocation.getLongitude());
                 startActivity(signalementdesdechet);
             }
         });
@@ -93,9 +117,9 @@ public class MapDesDechets extends AppCompatActivity {
 
     private LocationManager androidLocationManager;
     private LocationListener androidLocationListener;
-    private final static int REQUEST_CODE_UPDATE_LOCATION=42;
+    private final static int REQUEST_CODE_UPDATE_LOCATION = 42;
 
-    public void androidUpdateLocation(){
+    public void androidUpdateLocation() {
         if (ActivityCompat.checkSelfPermission(MapDesDechets.this, android.Manifest.permission.ACCESS_FINE_LOCATION
         ) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
@@ -106,11 +130,17 @@ public class MapDesDechets extends AppCompatActivity {
             androidLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             androidLocationListener = new LocationListener() {
                 public void onLocationChanged(Location loc) {
-                    Toast.makeText(MapDesDechets.this, "Vous bougez, mois vous êtes ici : "+loc.getLatitude()+" / "+loc.getLongitude(), Toast.LENGTH_LONG).show();
+                    lavraieLocation = extractLocation(loc);
                 }
-                public void onStatusChanged(String provider, int status, Bundle extras) {}
-                public void onProviderEnabled(String provider) {}
-                public void onProviderDisabled(String provider) {}
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+
+                public void onProviderEnabled(String provider) {
+                }
+
+                public void onProviderDisabled(String provider) {
+                }
             };
 
             androidLocationManager.requestLocationUpdates(
@@ -119,6 +149,30 @@ public class MapDesDechets extends AppCompatActivity {
                     50, // en mètres
                     androidLocationListener);
         }
+    }
+
+    private void getLastLocation() {
+        if (ActivityCompat.checkSelfPermission(MapDesDechets.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(MapDesDechets.this,Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Toast.makeText(MapDesDechets.this, "Permission nécessaire avait déjà été refusée.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(MapDesDechets.this, "Demande de permission lancée.", Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(
+                        MapDesDechets.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        } else {
+            androidLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            Location loc = androidLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(loc==null) {
+                Toast.makeText(MapDesDechets.this, "Pas de localisation disponible", Toast.LENGTH_LONG).show();
+            } else {
+                lavraieLocation = extractLocation(loc);
+            }
+        }
+    }
+    private Location extractLocation(Location loc){
+        return loc;
     }
 
     @Override
