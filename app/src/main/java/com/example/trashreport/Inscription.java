@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -94,6 +95,8 @@ public class Inscription extends AppCompatActivity {
             if (countOccurencesOfEmail(bdd, String.valueOf(EMail.getText()))==0){
                 InsertUser(bdd, String.valueOf(EMail.getText()), String.valueOf(MDP.getText()));
                 finish();
+            }else{
+                Toast.makeText(this, R.string.compteExiste, Toast.LENGTH_SHORT).show();
             }
 
         });

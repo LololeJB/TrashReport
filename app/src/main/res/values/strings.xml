@@ -4,4 +4,5 @@
     <string name="email">Email :</string>
     <string name="password">Mot de Passe :</string>
     <string name="confirm_password">Confirmer le mot de passe :</string>
+    <string name="compteExiste">Le compte existe déjà</string>
 </resources>
