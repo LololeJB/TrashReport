@@ -8,14 +8,14 @@ public class UserDAO {
 
     public static String selectPasswordbyEmail(SQLClient bdd,String email) {
         SQLiteDatabase db = bdd.getReadableDatabase();
-        Cursor ReqResult = db.rawQuery("select UserId, Password from User where Email= '" + email+"'", null);
-        db.close();
+        Cursor ReqResult = db.rawQuery("select UserId, Password from User where Email = '"+email+"'", null);
         String clientPassword;
         if (ReqResult.moveToFirst()) {
             clientPassword = ReqResult.getString(ReqResult.getColumnIndexOrThrow("Password"));
         } else {
             throw new NullPointerException("Pas de résultats");
         }
+        db.close();
         return clientPassword;
     }
     public static int countAll(SQLClient bdd){
@@ -48,4 +48,19 @@ public class UserDAO {
         return allusers;
     }
 
+    public static int verifPasswordandEmail(SQLClient bdd,String email, String mdp) {
+        if (countOccurencesOfEmail(bdd, email) == 1) {
+            SQLiteDatabase db = bdd.getReadableDatabase();
+            Cursor ReqResult = db.rawQuery("select count(UserId) number from User where Email = '" + email + "' and Password = '"+ mdp +"'", null);
+            int clientPassword;
+            if (ReqResult.moveToFirst()) {
+                clientPassword = ReqResult.getInt(ReqResult.getColumnIndexOrThrow("number"));
+            } else {
+                return 0;
+            }
+            db.close();
+            return clientPassword;
+        }
+        return 0;
+    }
 }

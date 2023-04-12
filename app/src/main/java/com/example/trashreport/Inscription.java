@@ -38,10 +38,6 @@ public class Inscription extends AppCompatActivity {
             finish();
         });
 
-        String eMailText = String.valueOf(EMail.getText());
-        String mDPText = String.valueOf(MDP.getText());
-        String mDPVraiText = String.valueOf(MDPVrai.getText());
-
         MDPVrai.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

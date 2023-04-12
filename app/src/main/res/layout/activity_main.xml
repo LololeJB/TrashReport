@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/boutonfeur"
+        android:id="@+id/boutonSeConnecter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Se Connecter"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/boutonflop"
+        android:id="@+id/boutonSinscrire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="s'inscrire"
@@ -48,7 +48,7 @@
         android:ems="10"
         android:hint="Mot de passe"
         android:inputType="textPersonName|textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/boutonfeur"
+        app:layout_constraintBottom_toTopOf="@+id/boutonSeConnecter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
