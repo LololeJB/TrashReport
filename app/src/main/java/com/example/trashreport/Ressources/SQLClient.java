@@ -13,6 +13,7 @@ public class SQLClient extends SQLiteOpenHelper {
     public static final String SQL_DELETE_P1="DROP TABLE IF EXISTS User";
     public static final String SQL_DELETE_P2="DROP TABLE IF EXISTS Dechets";
 
+
     public SQLClient(Context context){
         super(context,DATABASE_FILE,null,DATABASE_VERSION);
     }
@@ -21,10 +22,12 @@ public class SQLClient extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQLClient.SQL_CREATE_P1);
         db.execSQL(SQLClient.SQL_CREATE_P2);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL(SQLClient.SQL_DELETE_P2);
         db.execSQL(SQLClient.SQL_DELETE_P1);
         this.onCreate(db);
